@@ -7,9 +7,3 @@ export default function BlogPage() {
     </Layout>
   );
 }
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}
