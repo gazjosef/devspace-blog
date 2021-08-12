@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 import Layout from "../components/Layout";
 
 export default function HomePage() {
@@ -21,9 +22,10 @@ export async function getStaticProps() {
       "utf-8"
     );
 
-    console.log(markdownWithMeta);
+    const { data: frontmatter } = matter(markdownWithMeta);
     return {
       slug,
+      frontmatter,
     };
   });
 
