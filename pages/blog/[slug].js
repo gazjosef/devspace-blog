@@ -1,9 +1,12 @@
 import fs from "fs";
 import path from "path";
+import Link from "next/link";
+import Layout from "../../components/Layout";
+import CategoryLabel from "../../components/CategoryLabel";
 import matter from "gray-matter";
 
 export default function PostPage({
-  frontmatter: { title, category, data, cover_image, author, author_image },
+  frontmatter: { title, category, date, cover_image, author, author_image },
   content,
   slug,
 }) {
