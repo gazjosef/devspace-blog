@@ -23,5 +23,15 @@ export default function handler(req, res) {
       };
     });
   }
-  res.status(200).json({ name: "John Doe" });
+
+  const results = posts.filter(
+    ({ frontmatter: { title, excerpt, category } }) =>
+      title.toLowerCase().indexOf(req.query.q) != -1 ||
+      excerpt.toLowerCase().indexOf(req.query.q) != -1 ||
+      category.toLowerCase().indexOf(req.query.q) != -1
+  );
+
+  console.log(results);
+
+  res.status(200).json(JSON.stringify({ results }));
 }
