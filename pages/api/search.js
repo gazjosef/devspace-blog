@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-export default function handler(req, res) {
+export default (req, res) => {
   let posts;
 
   if (process.env.NODE_ENV === "production") {
@@ -11,6 +11,8 @@ export default function handler(req, res) {
     const files = fs.readdirSync(path.join("posts"));
 
     posts = files.map((filename) => {
+      const slug = filename.replace(".md", "");
+
       const markdownWithMeta = fs.readFileSync(
         path.join("posts", filename),
         "utf-8"
@@ -19,6 +21,7 @@ export default function handler(req, res) {
       const { data: frontmatter } = matter(markdownWithMeta);
 
       return {
+        slug,
         frontmatter,
       };
     });
@@ -31,7 +34,7 @@ export default function handler(req, res) {
       category.toLowerCase().indexOf(req.query.q) != -1
   );
 
-  console.log(results);
+  // console.log(results);
 
   res.status(200).json(JSON.stringify({ results }));
-}
+};
